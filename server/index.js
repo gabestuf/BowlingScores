@@ -1,17 +1,21 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+// let cors = require('cors')
 const path = require('path')
 // middleware
 // const mongoose = require('mongoose')
 // mongoose.set("strictQuery", false);
 // const connectDB = require('./config/dbConn')
-const UserRouter = require('./api/User')
+// const UserRouter = require('./api/User')
 
 // INIT
-
-app.use(express.static(path.join(__dirname, '/public')))
-app.use(express.json())
+// app.use(cors())
+// bodyParser
+// const bodyParser = require('express').json;
+// app.use(bodyParser())
+// app.use(express.static(path.join(__dirname, '/public')))
+// app.use(express.json())
 
 //Routes
 app.get('/', (req, res) => {
@@ -19,7 +23,7 @@ app.get('/', (req, res) => {
 })
 
 // Users route
-app.use('/user', UserRouter)
+// app.use('/user', UserRouter)
 
 
 // connect to database
@@ -32,5 +36,4 @@ app.use('/user', UserRouter)
 //     app.listen(process.env.PORT || 3000, () => console.log(`Server Started on Port ${process.env.PORT || 3000}`));
 // })
 
-module.exports = app
-// app.listen(3000, () => console.log('Server Started on Port 3000'));
+app.listen(3000, () => console.log('Server Started on Port 3000'));
