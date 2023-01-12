@@ -24,7 +24,7 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
     try {
       const response = await axios.post("/user/signin", { username: username, password: password });
       const res = response.data;
-      console.log(res);
+      // console.log(res);
       if (res.status === "SUCCESS") {
         setUsername(res.username);
         const uuid = crypto.randomUUID();

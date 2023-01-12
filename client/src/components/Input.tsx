@@ -138,7 +138,6 @@ const Title: FC<Props> = ({ title, addThrow, availableInputs, removeThrow }) => 
         </button>
         <button
           onClick={() => {
-            console.log("undo");
             removeThrow();
           }}
           className="btn13"
