@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ScorePage from "./ScorePage";
 import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
@@ -13,6 +13,26 @@ function App() {
   const [authCookie, setAuthCookie, removeAuthCookie] = useCookies();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // remember to change back to false after testing
   const [frameList, setFrameList] = useState<Array<Array<number>>>([]);
+  const testFunction = async () => {
+    const res = await fetch("https://bowling-scores-api.vercel.app/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: "Carl77",
+        password: "test1234",
+        password2: "test1234",
+      }),
+    });
+
+    const response = await res.json();
+
+    console.log(response);
+  };
+  useEffect(() => {
+    testFunction();
+  }, []);
 
   return (
     <BrowserRouter>

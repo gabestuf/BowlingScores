@@ -1,21 +1,21 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+let BUILD = true
+const localAPI = "http://localhost:3000/"
+const vercelAPI = "https://bowling-scores-api.vercel.app/"
+let url = BUILD ? vercelAPI : localAPI
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  build: {
-    manifest: true,
-    rollupOptions: {
-      input: "./src/main.tsx",
-    },
-  },
   server: {
     proxy: {
-      "/user/getMatches": "http://localhost:3000/",
-      "/user/saveScore": "http://localhost:3000/",
-      "/user/signin":"http://localhost:3000/",
-      "/user/signup":"http://localhost:3000/",
+      "/user/getMatches": url,
+      "/user/saveScore": url,
+      "/user/signin":url,
+      "/user/signup":url,
     }
   }
 });
