@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "src": "/", "destination": "/" },
+    { "src": "/signin", "destination": "/" },
+    { "src": "/signup", "destination": "/" },
+    { "src": "/profile", "destination": "/" }
+  ]
+}

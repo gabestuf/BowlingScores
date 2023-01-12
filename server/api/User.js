@@ -219,8 +219,6 @@ userRouter.post('/getMatches', (req, res) => {
                     })
                 }
 
-
-
             } else {
                 res.json({
                     status: "FAILED",
