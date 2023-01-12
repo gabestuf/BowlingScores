@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 const localAPI = "http://localhost:3000/"
-const vercelAPI = "https://bowling-scores-api.vercel.app/"
+const vercelAPI = "https://www.gabestuf.com/"
 
 
 // https://vitejs.dev/config/
