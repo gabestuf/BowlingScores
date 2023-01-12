@@ -22,9 +22,33 @@ const LoginPage: FC<Props> = () => {
       return alert("Passwords don't match!");
     }
 
+    // try {
+    //   const response = await axios.post("/user/signup", { username: username, password: password });
+    //   const res = response.data;
+
+    //   if (res.status === "SUCCESS") {
+    //     alert("Signup Successful");
+    //     navigate("/signin");
+    //   } else {
+    //     return alert(res.message);
+    //   }
+    // } catch (e) {
+    //   console.error(e);
+    // }
+
     try {
-      const response = await axios.post("/user/signup", { username: username, password: password });
-      const res = response.data;
+      const response = await fetch("https://bowling-scores.vercel.app/user/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+
+      const res = await response.json();
 
       if (res.status === "SUCCESS") {
         alert("Signup Successful");
@@ -33,6 +57,7 @@ const LoginPage: FC<Props> = () => {
         return alert(res.message);
       }
     } catch (e) {
+      return alert(`Signup failed: ${e}`);
       console.error(e);
     }
   };
