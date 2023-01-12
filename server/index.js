@@ -9,7 +9,6 @@ const path = require('path')
 const UserRouter = require('./api/User')
 
 // INIT
-// bodyParser
 
 app.use(express.static(path.join(__dirname, '/public')))
 app.use(express.json())
