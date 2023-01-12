@@ -1,0 +1,39 @@
+.loginPage {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 5rem
+}
+
+.LoginForm {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: center;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+input {
+    height: 2rem;
+    border: solid thin black;
+    border-radius: .3rem;
+    padding: 0 .4rem;
+    font-size: 1.2rem;
+}
+
+button {
+    height: 1.5rem;
+    margin-top: 1rem;
+    align-self:flex-end;
+    width: clamp(3rem, 50%, 90%)
+}
+
+button:hover {
+    cursor: pointer;
+}

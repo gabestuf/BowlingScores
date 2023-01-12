@@ -1,0 +1,24 @@
+.Header {
+    font-weight: bold;
+    font-size: 1.5rem;
+    outline: solid thin black;
+    display: flex;
+    justify-content: end;
+    padding: 1rem 1rem;
+}
+
+.Header > ul {
+    display: flex;
+    gap: 3rem;
+    list-style-type: none;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: red;
+}

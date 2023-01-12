@@ -1,0 +1,75 @@
+:root {
+    --frame-width: 3.6rem
+}
+
+.scorecard {
+    display: flex;
+    flex-wrap: wrap;
+}
+.scorecard > * {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 0px;
+}
+/* Frame */
+.frame {
+    display: grid;
+    grid-template-areas: "label label"
+                         "ball1 ball2"
+                         "total total";
+    grid-template-rows: 1fr 1.5fr 1.5fr;
+    grid-template-columns: 1fr 1fr;
+  
+    outline: solid thin black;
+    float: left;
+    text-align: center;
+}
+
+.frame > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: calc(var(--frame-width) / 2);
+}
+
+.title {
+    grid-area: label;
+    border-bottom: solid thin black;
+}
+
+.score1 {
+    grid-area: ball1;
+}
+.score2 {
+    grid-area: ball2;
+    border-left: solid thin black;
+    border-bottom: solid thin black;
+}
+.total {
+    grid-area: total;
+    margin-top: .5rem;
+}
+
+.frame10 {
+    display: grid;
+    grid-template-areas: "label label label"
+                         "ball1 ball2 ball3"
+                         "total total total";
+    grid-template-rows: 1fr 1.5fr 1.5fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  
+    outline: solid thin black;
+    text-align: center;
+}
+.frame10 > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: calc(var(--frame-width) / 3);
+}
+
+.score3 {
+    grid-area: ball3;
+    border-left: solid thin black;
+    border-bottom: solid thin black;
+}
