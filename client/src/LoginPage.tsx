@@ -2,7 +2,7 @@ import React, { FC, useRef } from "react";
 import "./css/LoginForm.css";
 import { useNavigate } from "react-router-dom";
 import { CookieSetOptions } from "universal-cookie";
-import axios from "axios";
+import URL from "./URLS";
 
 interface Props {
   setAuthCookie: (name: "user", value: any, options?: CookieSetOptions | undefined) => void;
@@ -22,9 +22,19 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
     const password: string = passwordElement.current.value;
 
     try {
-      const response = await axios.post("/user/signin", { username: username, password: password });
-      const res = response.data;
-      // console.log(res);
+      const response = await fetch(URL + "/user/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+
+      const res = await response.json();
+
       if (res.status === "SUCCESS") {
         setUsername(res.username);
         const uuid = crypto.randomUUID();
@@ -35,6 +45,7 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
         return alert(res.message);
       }
     } catch (e) {
+      alert(`Error logging in ${e}`);
       console.error(e);
     }
   };

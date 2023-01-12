@@ -1,7 +1,7 @@
 import React, { FC, useRef } from "react";
 import "./css/LoginForm.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import URL from "./URLS";
 
 interface Props {}
 
@@ -23,8 +23,18 @@ const LoginPage: FC<Props> = () => {
     }
 
     try {
-      const response = await axios.post("/user/signup", { username: username, password: password });
-      const res = response.data;
+      const response = await fetch(URL + "/user/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+
+      const res = await response.json();
 
       if (res.status === "SUCCESS") {
         alert("Signup Successful");
@@ -34,34 +44,8 @@ const LoginPage: FC<Props> = () => {
       }
     } catch (e) {
       console.error(e);
+      return alert(`Signup failed: ${e}`);
     }
-
-    // try {
-    //   const response = await fetch("https://www.gabestuf.com/user/signup", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       username: username,
-    //       password: password,
-    //     }),
-    //   });
-
-    //   console.log(response);
-
-    //   const res = await response.json();
-
-    //   if (res.status === "SUCCESS") {
-    //     alert("Signup Successful");
-    //     navigate("/signin");
-    //   } else {
-    //     return alert(res.message);
-    //   }
-    // } catch (e) {
-    //   console.error(e);
-    //   return alert(`Signup failed: ${e}`);
-    // }
   };
 
   return (

@@ -1,26 +1,43 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { UserContext } from "../UserContext";
 import Scorecard from "./Scorecard";
-import axios from "axios";
+import URL from "./../URLS";
 interface Props {}
 
 const GameHistory: FC<Props> = () => {
   const username = useContext(UserContext);
 
   const [matchHistory, setMatchHistory] = useState([]);
-  const urlWithProxy = "/user/getMatches";
 
   // Retrieve user's games on load
   useEffect(() => {
-    axios
-      .post(urlWithProxy, { username: username })
-      .then((res) => {
-        setMatchHistory(JSON.parse(res.data.gameList).reverse());
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    getMatches();
   }, []);
+
+  async function getMatches() {
+    try {
+      const response = await fetch(URL + "/user/getMatches", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+        }),
+      });
+
+      const res = await response.json();
+
+      if (res.status === "SUCCESS") {
+        setMatchHistory(JSON.parse(res.gameList).reverse());
+      } else {
+        return alert(res.message);
+      }
+    } catch (e) {
+      alert(`Error finding matches: ${e}`);
+      console.error(e);
+    }
+  }
 
   // Return this code if there are no games played
   if (matchHistory.length === 0) {

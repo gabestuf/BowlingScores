@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
+import URL from "./../URLS";
 import { UserContext } from "../UserContext";
-import axios from "axios";
 
 interface Props {
   frameList: number[][];
@@ -9,20 +9,34 @@ interface Props {
 const ScorecardOptions: FC<Props> = ({ frameList }) => {
   const username = useContext(UserContext);
 
-  const handleSave = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (username === null) {
       return alert("Please sign in to save games :)");
     }
 
-    axios
-      .post("/user/saveScore", { username: username, bowlingGame: frameList })
-      .then((res) => {
-        alert(res.data.message);
-      })
-      .catch((e) => {
-        console.error(e);
+    try {
+      const response = await fetch(URL + "/user/saveScore", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          bowlingGame: frameList,
+        }),
       });
+      const res = await response.json();
+      console.log(res);
+      if (res.status === "SUCCESS") {
+        alert(res.message);
+      } else {
+        alert("Error saving game: " + res.message);
+      }
+    } catch (e) {
+      alert(`Error saving game: ${e}`);
+      console.error(e);
+    }
   };
 
   return (
