@@ -12,12 +12,14 @@ const UserRouter = require('./api/User')
 // INIT
 app.use(cors())
 // bodyParser
-const bodyParser = require('express').json;
-app.use(bodyParser())
+
 app.use(express.static(path.join(__dirname, '/public')))
 app.use(express.json())
 
 //Routes
+app.get('/', (req, res) => {
+    res.send("Hello There")
+})
 
 // Users route
 app.use('/user', UserRouter)

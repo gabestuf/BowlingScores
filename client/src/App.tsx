@@ -9,9 +9,9 @@ import useCookies from "react-cookie/cjs/useCookies";
 import { UserContext } from "./UserContext.js";
 
 function App() {
-  const [username, setUsername] = useState<string | null>("Carl5"); // TODO remember to change back to null after testing
+  const [username, setUsername] = useState<string | null>(null); // TODO remember to change back to null after testing
   const [authCookie, setAuthCookie, removeAuthCookie] = useCookies();
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true); // remember to change back to false after testing
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // remember to change back to false after testing
   const [frameList, setFrameList] = useState<Array<Array<number>>>([]);
 
   return (
