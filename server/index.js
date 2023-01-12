@@ -1,19 +1,19 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-// let cors = require('cors')
+let cors = require('cors')
 const path = require('path')
 // middleware
-// const mongoose = require('mongoose')
-// mongoose.set("strictQuery", false);
-// const connectDB = require('./config/dbConn')
-// const UserRouter = require('./api/User')
+const mongoose = require('mongoose')
+mongoose.set("strictQuery", false);
+const connectDB = require('./config/dbConn')
+const UserRouter = require('./api/User')
 
 // INIT
-// app.use(cors())
+app.use(cors())
 // bodyParser
-// const bodyParser = require('express').json;
-// app.use(bodyParser())
+const bodyParser = require('express').json;
+app.use(bodyParser())
 // app.use(express.static(path.join(__dirname, '/public')))
 // app.use(express.json())
 
@@ -23,17 +23,17 @@ app.get('/', (req, res) => {
 })
 
 // Users route
-// app.use('/user', UserRouter)
+app.use('/user', UserRouter)
 
 
 // connect to database
-// connectDB();
+connectDB();
 
-// const db = mongoose.connection
-// db.on('error', (error) => { console.error(error) })
-// db.once('open', () => {
-//     console.log("Connected to database");
-//     app.listen(process.env.PORT || 3000, () => console.log(`Server Started on Port ${process.env.PORT || 3000}`));
-// })
+const db = mongoose.connection
+db.on('error', (error) => { console.error(error) })
+db.once('open', () => {
+    console.log("Connected to database");
+    app.listen(process.env.PORT || 3000, () => console.log(`Server Started on Port ${process.env.PORT || 3000}`));
+})
 
-app.listen(3000, () => console.log('Server Started on Port 3000'));
+// app.listen(3000, () => console.log('Server Started on Port 3000'));
