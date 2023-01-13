@@ -1,9 +1,9 @@
 {
   "version": 2,
   "rewrites": [
-    { "src": "/", "destination": "/" },
-    { "src": "/signin", "destination": "/" },
-    { "src": "/signup", "destination": "/" },
-    { "src": "/profile", "destination": "/" }
+    { "source": "/", "destination": "/" },
+    { "source": "/signin", "destination": "/" },
+    { "source": "/signup", "destination": "/" },
+    { "source": "/profile", "destination": "/" }
   ]
 }
