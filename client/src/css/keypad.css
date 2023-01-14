@@ -16,10 +16,10 @@
 
 .keypad > button {
     margin-top: 0;
-    width: 3rem;
-    height: 3rem;
+    width: clamp(69px, 3rem, 200px);
+    height: clamp(69px, 3rem, 200px);
     color: var(--main-color);
-    font-size: .8rem;
+    font-size: clamp(20px, .8rem, 69px);
 }
 .keypad > button:hover {
     cursor: pointer;
@@ -89,12 +89,4 @@
 }
 .btn14 {
     grid-area: btnF;
-}
-
-@media only screen and (width < 800px) {
-    .keypad > button {
-        font-size: 14px;
-        width: 48px;
-    height: 48px;
-    }
 }

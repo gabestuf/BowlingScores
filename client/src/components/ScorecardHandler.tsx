@@ -115,7 +115,7 @@ const ScorecardHandler: FC<Props> = ({ frameList, showDetails, frameScores, setF
       }
     }
     // console.log("Fscores");
-    console.log(fScores);
+    // console.log(fScores);
 
     // 10th frame
 
