@@ -1,6 +1,6 @@
 const BUILD: boolean = true
 
-const localAPI: string = "http://localhost:3000"
-const vercelAPI: string = "https://www.gabestuf.com"
+const localAPI: string = "http://localhost:3000/bowling"
+const vercelAPI: string = "https://www.gabestuf.com/bowling"
 
 export default BUILD ? vercelAPI : localAPI
