@@ -115,7 +115,7 @@ const ScorecardHandler: FC<Props> = ({ frameList, showDetails, frameScores, setF
       }
     }
     // console.log("Fscores");
-    // console.log(fScores);
+    console.log(fScores);
 
     // 10th frame
 
@@ -215,7 +215,9 @@ const ScorecardHandler: FC<Props> = ({ frameList, showDetails, frameScores, setF
         if (fList[fIndex + 1][1] === "/") {
           count = 10;
         } else {
-          count += parseInt(fList[fIndex + 1][1]);
+          if (fList[fIndex + 1][1] !== "-") {
+            count += parseInt(fList[fIndex + 1][1]);
+          }
         }
       }
       return count;
@@ -333,7 +335,6 @@ const ScorecardHandler: FC<Props> = ({ frameList, showDetails, frameScores, setF
         }
       }
     }
-
     maxScore = calcFrameScores(convertFrameList([...frList]))[9];
 
     return maxScore;
