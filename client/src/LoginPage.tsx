@@ -49,6 +49,7 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
         return alert(res.message);
       }
     } catch (e) {
+      setLoading(false);
       alert(`Error logging in ${e}`);
       console.error(e);
     }

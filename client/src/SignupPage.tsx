@@ -49,6 +49,7 @@ const LoginPage: FC<Props> = () => {
       }
     } catch (e) {
       console.error(e);
+      setLoading(false);
       return alert(`Signup failed: ${e}`);
     }
   };
@@ -64,7 +65,7 @@ const LoginPage: FC<Props> = () => {
         <input ref={passwordElement2} type="password" name="password2" id="password2" required />
         <button className="btn">Submit</button>
       </form>
-      {loading ? <LoadingDisplay /> : null}
+      {loading ? <LoadingDisplay /> : <></>}
     </div>
   );
 };

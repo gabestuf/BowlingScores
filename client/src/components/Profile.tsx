@@ -37,6 +37,7 @@ const Profile: FC<Props> = () => {
       }
     } catch (e) {
       alert(`Error finding matches: ${e}`);
+      setLoading(false);
       console.error(e);
     }
   }
