@@ -244,10 +244,10 @@ const ScorecardHandler: FC<Props> = ({ frameList, showDetails, frameScores, setF
         // second ball
         if (fList[fIndex + 1][1] === "/") {
           count = 10;
-        } else if (fList[fIndex + 1][1] === "-") {
-          count += 0;
         } else {
-          count += parseInt(fList[fIndex + 1][1]);
+          if (fList[fIndex + 1][1] !== "-") {
+            count += parseInt(fList[fIndex + 1][1]);
+          }
         }
       }
       return count;
