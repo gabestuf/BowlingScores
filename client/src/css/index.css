@@ -1,3 +1,12 @@
+:root {
+  --main-color: rgb(27, 91, 185);
+  --main-color-light: rgba(27, 90, 185, 0.178);
+}
+
+html {
+  font-size: clamp(10px, 2vw, 22px);
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -11,15 +20,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    user-select: none;
+    
   }
 
-.App {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  gap: 2rem;
-  margin-top: 3rem;
-}
+

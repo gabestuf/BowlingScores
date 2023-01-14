@@ -1,22 +1,24 @@
 import { FC } from "react";
+import "./../css/CurrentGameStats.css";
 
 interface Props {
-  frameList: number;
+  frameScores: number[];
+  maxScore: number;
 }
 
-const CurrentGameStats: FC<Props> = ({ frameList }) => {
+const CurrentGameStats: FC<Props> = ({ frameScores, maxScore }) => {
   return (
-    <table>
+    <table className="CurrentGameStats">
       <thead>
         <tr>
-          <td>Current Score</td>
-          <td>Max Score</td>
+          <td>Current Score: </td>
+          <td>Max Score: </td>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>0</td>
-          <td>0</td>
+          <td>{frameScores[frameScores.length - 1]}</td>
+          <td>{maxScore}</td>
         </tr>
       </tbody>
     </table>

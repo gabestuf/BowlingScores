@@ -30,10 +30,23 @@
 }
 
 .GameHistoryTable tbody tr:last-of-type {
-    border-bottom: thin solid #009879;
+    border-bottom: thin solid rgb(182, 182, 182);
 }
 
 .GameHistoryTable tbody tr.active-row {
     font-weight: bold;
-    color: #009879;
+    color: var(--main-color-light);
+}
+
+.delete-btn {
+    border: 2px solid black;
+    border-radius: .5rem;
+    background-color: rgb(145, 12, 12);
+    color: white;
+    padding: .4rem 1rem;
+}
+
+.delete-btn:hover {
+    cursor: pointer;
+    background-color: red;
 }

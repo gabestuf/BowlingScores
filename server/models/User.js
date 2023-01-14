@@ -5,9 +5,21 @@ const UserSchema = new Schema({
     username: String,
     password: String,
     data: String,
-    gameList: String
+    gameData: String
 })
 
 const User = mongoose.model('User', UserSchema)
 
 module.exports = User;
+
+// gameData is a list of games 
+/* 
+
+[
+    {
+        scorecard: number[][],
+        frameScores: number[],
+    }
+]
+
+*/

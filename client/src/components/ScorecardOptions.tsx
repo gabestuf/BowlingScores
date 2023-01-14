@@ -4,9 +4,11 @@ import { UserContext } from "../UserContext";
 
 interface Props {
   frameList: number[][];
+  frameScores: number[];
+  resetGame: () => void;
 }
 
-const ScorecardOptions: FC<Props> = ({ frameList }) => {
+const ScorecardOptions: FC<Props> = ({ frameList, frameScores, resetGame }) => {
   const username = useContext(UserContext);
 
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -23,13 +25,16 @@ const ScorecardOptions: FC<Props> = ({ frameList }) => {
         },
         body: JSON.stringify({
           username: username,
-          bowlingGame: frameList,
+          bowlingGame: {
+            scorecard: frameList,
+            frameScores: frameScores,
+          },
         }),
       });
       const res = await response.json();
-      console.log(res);
       if (res.status === "SUCCESS") {
         alert(res.message);
+        resetGame();
       } else {
         alert("Error saving game: " + res.message);
       }
@@ -41,7 +46,9 @@ const ScorecardOptions: FC<Props> = ({ frameList }) => {
 
   return (
     <div className="ScorecardOptions">
-      <button onClick={(e) => handleSave(e)}>Save</button>
+      <button className="btn" onClick={(e) => handleSave(e)}>
+        Save
+      </button>
     </div>
   );
 };

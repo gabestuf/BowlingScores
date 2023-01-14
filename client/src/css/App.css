@@ -1,0 +1,21 @@
+.App {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
+    align-items: center;
+  }
+  
+  .btn {
+    border: solid thin black;
+    border-radius: .2rem;
+    align-self: center;
+    height: 1.5rem;
+    padding: 0 3rem;
+  }
+
+.btn:hover {
+    cursor: pointer;
+    background-color:var(--main-color-light);
+}

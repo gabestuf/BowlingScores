@@ -4,13 +4,9 @@
 
 .scorecard {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
 }
-.scorecard > * {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 0px;
-}
+
 /* Frame */
 .frame {
     display: grid;
@@ -73,3 +69,11 @@
     border-left: solid thin black;
     border-bottom: solid thin black;
 }
+
+@media only screen and (width < 375px) {
+    .scorecard {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+

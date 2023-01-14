@@ -1,8 +1,9 @@
-import React, { FC, useRef } from "react";
+import React, { FC, useState, useRef } from "react";
 import "./css/LoginForm.css";
 import { useNavigate } from "react-router-dom";
 import { CookieSetOptions } from "universal-cookie";
 import URL from "./URLS";
+import LoadingDisplay from "./components/LoadingDisplay";
 
 interface Props {
   setAuthCookie: (name: "user", value: any, options?: CookieSetOptions | undefined) => void;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const usernameElement = useRef(document.createElement("input"));
   const passwordElement = useRef(document.createElement("input"));
@@ -20,7 +22,7 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
     e.preventDefault();
     const username: string = usernameElement.current.value;
     const password: string = passwordElement.current.value;
-
+    setLoading(true);
     try {
       const response = await fetch(URL + "/user/signin", {
         method: "POST",
@@ -34,6 +36,8 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
       });
 
       const res = await response.json();
+
+      setLoading(false);
 
       if (res.status === "SUCCESS") {
         setUsername(res.username);
@@ -51,7 +55,7 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
   };
 
   return (
-    <div className="loginPage">
+    <div className="App loginPage">
       <form className="LoginForm" onSubmit={(e) => submitFormHandler(e)}>
         <label htmlFor="username">Username</label>
 
@@ -59,8 +63,10 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
         <label htmlFor="password">Password</label>
 
         <input ref={passwordElement} type="password" name="password" id="password" required />
-        <button>Submit</button>
+        <button className="btn">Submit</button>
       </form>
+
+      {loading ? <LoadingDisplay /> : null}
     </div>
   );
 };

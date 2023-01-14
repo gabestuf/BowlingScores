@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import "./../css/Header.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { CookieSetOptions } from "universal-cookie";
 import { UserContext } from "../UserContext";
 
@@ -12,6 +12,7 @@ interface Props {
 
 const Header: FC<Props> = ({ isLoggedIn, setIsLoggedIn, setAuthCookie }) => {
   const username = useContext(UserContext);
+  let location: string = useLocation().pathname;
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -22,9 +23,22 @@ const Header: FC<Props> = ({ isLoggedIn, setIsLoggedIn, setAuthCookie }) => {
     <div className="Header">
       <ul>
         <li>
-          <NavLink className="link" to="/">
-            Home
-          </NavLink>
+          {(() => {
+            switch (location) {
+              case "/":
+                return (
+                  <NavLink className="link" to="/profile">
+                    Profile
+                  </NavLink>
+                );
+              default:
+                return (
+                  <NavLink className="link" to="/">
+                    Home
+                  </NavLink>
+                );
+            }
+          })()}
         </li>
         {isLoggedIn ? (
           <li>

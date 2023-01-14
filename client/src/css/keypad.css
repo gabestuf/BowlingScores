@@ -16,26 +16,33 @@
 
 .keypad > button {
     margin-top: 0;
-    width: 50px;
-    height: 50px;
+    width: 3rem;
+    height: 3rem;
+    color: var(--main-color);
+    font-size: .8rem;
 }
 .keypad > button:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    box-shadow: 0px 0px 2px 1px rgb(0, 0, 0);
 }
-
-
-
+.keypad > button:disabled {
+    opacity: .5;
+    color: grey
+}
+.keypad > button:disabled:hover {
+    opacity: .5;
+    transform: scale(1);
+    cursor:default;
+    box-shadow: none;
+}
 
 .btn1 {
     grid-area: btn1;
 }
 
-
 .btn2 {
     grid-area: btn2;
 }
-
 
 .btn3 {
     grid-area: btn3;
@@ -82,4 +89,12 @@
 }
 .btn14 {
     grid-area: btnF;
+}
+
+@media only screen and (width < 800px) {
+    .keypad > button {
+        font-size: 14px;
+        width: 48px;
+    height: 48px;
+    }
 }

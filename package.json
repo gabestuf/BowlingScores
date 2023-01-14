@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "dev": "concurrently \"cd ./server && nodemon server.js\" \"cd ./client && npm run dev\""
+    "dev": "concurrently \"cd ./server && nodemon index.js\" \"cd ./client && npm run dev\""
   }
 }

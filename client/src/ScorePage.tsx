@@ -1,5 +1,5 @@
-import { useState, FC } from "react";
-import Scorecard from "./components/Scorecard";
+import { useState, FC, Fragment } from "react";
+import ScorecardHandler from "./components/ScorecardHandler";
 import Input from "./components/Input";
 import ScorecardOptions from "./components/ScorecardOptions";
 
@@ -13,6 +13,16 @@ const ScorePage: FC<Props> = ({ frameList, setFrameList }) => {
   const [isFirstShot, setIsFirstShot] = useState<boolean>(true);
   const [availableInputs, setAvailableInputs] = useState<Array<boolean>>([true, true, true, true, true, true, true, true, true, true, false, true, true]);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
+  const [frameScores, setFrameScores] = useState<Array<number>>([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]);
+
+  const resetGame = () => {
+    setCurrentFrame([]);
+    setIsFirstShot(true);
+    setAvailableInputs([true, true, true, true, true, true, true, true, true, true, false, true, true]);
+    setIsGameOver(false);
+    setFrameScores([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]);
+    setFrameList([]);
+  };
 
   const addThrow = (val: number): void => {
     // 10th frame logic
@@ -156,9 +166,9 @@ const ScorePage: FC<Props> = ({ frameList, setFrameList }) => {
 
   return (
     <div className="App">
-      <Scorecard frameList={frameList} />
+      <ScorecardHandler showDetails={true} frameList={frameList} frameScores={frameScores} setFrameScores={setFrameScores} />
       <Input title="Input" addThrow={addThrow} removeThrow={removeThrow} availableInputs={availableInputs} />
-      {isGameOver ? <ScorecardOptions frameList={frameList} /> : null}
+      {isGameOver ? <ScorecardOptions frameList={frameList} frameScores={frameScores} resetGame={resetGame} /> : null}
     </div>
   );
 };

@@ -34,7 +34,7 @@ userRouter.post('/signup', (req, res) => {
     } else if (password.length < 8) { //make sure password isn't too short
         res.json({
             status: "FAILED",
-            message: "Password too short"
+            message: "Password too short, please create a password with at least 8 characters"
         })
     } else { // User & Pass are ok!!
         User.find({ username }).then(result => { //Check if user already exists
@@ -49,7 +49,7 @@ userRouter.post('/signup', (req, res) => {
                         username,
                         password: hashedPassword,
                         data: JSON.stringify({ data: "" }),
-                        gameList: JSON.stringify([])
+                        gameData: JSON.stringify([])
                     })
 
                     newUser.save().then(result => { //saves to database using mongoose
@@ -152,13 +152,13 @@ userRouter.post('/saveScore', (req, res) => {
                 let bowlingGameList = []
                 const id = data[0]._id
 
-                if ("gameList" in data[0]) {
-                    bowlingGameList = JSON.parse(data[0].gameList)
+                if ("gameData" in data[0]) {
+                    bowlingGameList = JSON.parse(data[0].gameData)
                     bowlingGameList.push(bowlingGame)
                 }
 
                 // update Game List
-                User.findByIdAndUpdate(id, { gameList: JSON.stringify(bowlingGameList) }).then(data => {
+                User.findByIdAndUpdate(id, { gameData: JSON.stringify(bowlingGameList) }).then(data => {
                     res.json({
                         status: "SUCCESS",
                         message: "Saved Game"
@@ -170,11 +170,7 @@ userRouter.post('/saveScore', (req, res) => {
                     })
                 })
 
-                // res.json({
-                //     status: "SUCCESS",
-                //     message: `Saved Game ${data[0].username}`,
-                //     username: data[0].username,
-                // })
+
             } else {
                 res.json({
                     status: "FAILED",
@@ -204,20 +200,77 @@ userRouter.post('/getMatches', (req, res) => {
             if (data.length) {
                 //User exists
 
-                if ("gameList" in data[0]) {
-                    JSON.parse(data[0].gameList)
+                if ("gameData" in data[0]) {
+                    JSON.parse(data[0].gameData)
                     res.json({
                         status: "SUCCESS",
                         message: "Retrieved this user's games",
-                        gameList: data[0].gameList
+                        gameData: data[0].gameData
                     })
                 } else {
                     res.json({
                         status: "SUCCESS",
                         message: "This user doesn't have any saved games",
-                        gameList: JSON.stringify([])
+                        gameData: JSON.stringify([])
                     })
                 }
+
+            } else {
+                res.json({
+                    status: "FAILED",
+                    message: "Invalid credentials entered"
+                })
+            }
+        })
+        .catch(e => {
+            res.json({
+                status: "FAILED",
+                message: `An error occured while checking for existing user: ${e}`
+            })
+        })
+})
+
+// Delete a match
+userRouter.post('/deleteMatch', (req, res) => {
+    let { username, gameIndex } = req.body;
+    username = username.trim()
+    username = username.trim()
+    // console.log(username)
+    // console.log(bowlingGame)
+    User.find({ username })
+        .then(data => {
+
+            if (data.length) {
+                //User exists
+                const id = data[0]._id
+
+                if ("gameData" in data[0]) {
+                    gameList = JSON.parse(data[0].gameData)
+                    try {
+                        gameList.splice(gameIndex, 1)
+
+                    } catch (e) {
+                        res.json({
+                            status: "FAILED",
+                            message: `Error deleting game: ${e}`
+                        })
+                    }
+
+                }
+
+                // update Game List
+                User.findByIdAndUpdate(id, { gameData: JSON.stringify(gameList) }).then(data => {
+                    res.json({
+                        status: "SUCCESS",
+                        message: "Saved Game"
+                    })
+                }).catch(e => {
+                    res.json({
+                        status: "FAILED",
+                        message: `Error deleting game: ${e}`
+                    })
+                })
+
 
             } else {
                 res.json({

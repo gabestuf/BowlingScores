@@ -1,11 +1,13 @@
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useState } from "react";
 import "./css/LoginForm.css";
 import { useNavigate } from "react-router-dom";
 import URL from "./URLS";
+import LoadingDisplay from "./components/LoadingDisplay";
 
 interface Props {}
 
 const LoginPage: FC<Props> = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const usernameElement = useRef(document.createElement("input"));
   const passwordElement = useRef(document.createElement("input"));
@@ -13,6 +15,7 @@ const LoginPage: FC<Props> = () => {
 
   const submitFormHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     let username: string = usernameElement.current.value;
     let password: string = passwordElement.current.value;
     let password2: string = passwordElement2.current.value;
@@ -21,6 +24,7 @@ const LoginPage: FC<Props> = () => {
       passwordElement2.current.value = "";
       return alert("Passwords don't match!");
     }
+    setLoading(true);
 
     try {
       const response = await fetch(URL + "/user/signup", {
@@ -35,6 +39,7 @@ const LoginPage: FC<Props> = () => {
       });
 
       const res = await response.json();
+      setLoading(false);
 
       if (res.status === "SUCCESS") {
         alert("Signup Successful");
@@ -49,7 +54,7 @@ const LoginPage: FC<Props> = () => {
   };
 
   return (
-    <div className="loginPage">
+    <div className="App loginPage">
       <form className="LoginForm" onSubmit={(e) => submitFormHandler(e)}>
         <label htmlFor="username">Username</label>
         <input ref={usernameElement} type="text" name="username" id="username" required />
@@ -57,8 +62,9 @@ const LoginPage: FC<Props> = () => {
         <input ref={passwordElement} type="password" name="password" id="password" required />
         <label htmlFor="password2">Confirm Password</label>
         <input ref={passwordElement2} type="password" name="password2" id="password2" required />
-        <button>Submit</button>
+        <button className="btn">Submit</button>
       </form>
+      {loading ? <LoadingDisplay /> : null}
     </div>
   );
 };

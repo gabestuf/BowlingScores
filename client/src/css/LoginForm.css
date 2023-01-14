@@ -1,9 +1,5 @@
 .loginPage {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: 5rem
+    margin: 0 5rem;
 }
 
 .LoginForm {
@@ -11,12 +7,12 @@
     flex-direction: column;
     text-align: left;
     justify-content: center;
+    gap: 1rem;
 }
 
 label {
     font-weight: bold;
     font-size: 1.5rem;
-    margin-top: 1rem;
 }
 
 input {
@@ -27,13 +23,7 @@ input {
     font-size: 1.2rem;
 }
 
-button {
-    height: 1.5rem;
-    margin-top: 1rem;
-    align-self:flex-end;
-    width: clamp(3rem, 50%, 90%)
+.LoginForm > .btn {
+    margin-left: auto;
 }
 
-button:hover {
-    cursor: pointer;
-}

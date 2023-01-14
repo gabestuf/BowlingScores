@@ -4,35 +4,16 @@ import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
 import ProfilePage from "./ProfilePage";
 import Header from "./components/Header";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import useCookies from "react-cookie/cjs/useCookies";
 import { UserContext } from "./UserContext.js";
+import "./css/App.css";
 
 function App() {
   const [username, setUsername] = useState<string | null>(null); // TODO remember to change back to null after testing
   const [authCookie, setAuthCookie, removeAuthCookie] = useCookies();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // remember to change back to false after testing
   const [frameList, setFrameList] = useState<Array<Array<number>>>([]);
-  const testFunction = async () => {
-    const res = await fetch("https://bowling-scores-api.vercel.app/user/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: "Carl77",
-        password: "test1234",
-        password2: "test1234",
-      }),
-    });
-
-    const response = await res.json();
-
-    console.log(response);
-  };
-  useEffect(() => {
-    testFunction();
-  }, []);
 
   return (
     <BrowserRouter>
