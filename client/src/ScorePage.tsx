@@ -29,10 +29,10 @@ const ScorePage: FC<Props> = ({ frameList, setFrameList, setCurrentGameCookie, c
       setFrameScores(currentGameCookie.currentGame.frameScores);
       setFrameList(currentGameCookie.currentGame.frameList);
       setIsGameOver(isGameOver);
-    }
 
-    if (currentGameCookie.currentGame.frameList.length === 10 && (currentGameCookie.currentGame.frameList[9].length === 3 || (currentGameCookie.currentGame.frameList[9].length === 2 && currentGameCookie.currentGame.frameList[9][0] + currentGameCookie.currentGame.frameList[9][1] < 10))) {
-      setIsGameOver(true);
+      if (currentGameCookie.currentGame.frameList.length === 10 && (currentGameCookie.currentGame.frameList[9].length === 3 || (currentGameCookie.currentGame.frameList[9].length === 2 && currentGameCookie.currentGame.frameList[9][0] + currentGameCookie.currentGame.frameList[9][1] < 10))) {
+        setIsGameOver(true);
+      }
     }
   }, []);
 
