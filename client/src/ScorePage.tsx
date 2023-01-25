@@ -1,19 +1,51 @@
-import { useState, FC, Fragment } from "react";
+import { useState, FC, Fragment, useEffect } from "react";
 import ScorecardHandler from "./components/ScorecardHandler";
 import Input from "./components/Input";
 import ScorecardOptions from "./components/ScorecardOptions";
+import { CookieSetOptions } from "universal-cookie";
 
 interface Props {
   frameList: number[][];
   setFrameList: React.Dispatch<React.SetStateAction<number[][]>>;
+  setCurrentGameCookie: (name: string, value: any, options?: CookieSetOptions | undefined) => void;
+  currentGameCookie: { [x: string]: any };
+  removeCurrentGameCookie: (name: string, options?: CookieSetOptions | undefined) => void;
 }
 
-const ScorePage: FC<Props> = ({ frameList, setFrameList }) => {
+const ScorePage: FC<Props> = ({ frameList, setFrameList, setCurrentGameCookie, currentGameCookie, removeCurrentGameCookie }) => {
   const [currentFrame, setCurrentFrame] = useState<Array<number>>([]);
   const [isFirstShot, setIsFirstShot] = useState<boolean>(true);
   const [availableInputs, setAvailableInputs] = useState<Array<boolean>>([true, true, true, true, true, true, true, true, true, true, false, true, true]);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [frameScores, setFrameScores] = useState<Array<number>>([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]);
+
+  // On page load, set state if cookie exists
+  useEffect(() => {
+    // First check if there is a cookie
+    if ("currentGame" in currentGameCookie) {
+      setCurrentFrame(currentGameCookie.currentGame.currentFrame);
+      setIsFirstShot(currentGameCookie.currentGame.isFirstShot);
+      setAvailableInputs(currentGameCookie.currentGame.availableInputs);
+      setFrameScores(currentGameCookie.currentGame.frameScores);
+      setFrameList(currentGameCookie.currentGame.frameList);
+      setIsGameOver(isGameOver);
+    }
+
+    if (currentGameCookie.currentGame.frameList.length === 10 && (currentGameCookie.currentGame.frameList[9].length === 3 || (currentGameCookie.currentGame.frameList[9].length === 2 && currentGameCookie.currentGame.frameList[9][0] + currentGameCookie.currentGame.frameList[9][1] < 10))) {
+      setIsGameOver(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    setCurrentGameCookie("currentGame", {
+      currentFrame: currentFrame,
+      isFirstShot: isFirstShot,
+      availableInputs: availableInputs,
+      frameScores: frameScores,
+      isGameOver: isGameOver,
+      frameList: frameList,
+    });
+  }, [currentFrame, isFirstShot, availableInputs, frameScores, frameList]);
 
   const resetGame = () => {
     setCurrentFrame([]);
@@ -22,6 +54,7 @@ const ScorePage: FC<Props> = ({ frameList, setFrameList }) => {
     setIsGameOver(false);
     setFrameScores([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]);
     setFrameList([]);
+    removeCurrentGameCookie("currentGame");
   };
 
   const addThrow = (val: number): void => {

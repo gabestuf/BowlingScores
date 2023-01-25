@@ -16,10 +16,10 @@
 
 .keypad > button {
     margin-top: 0;
-    width: clamp(69px, 3rem, 200px);
-    height: clamp(69px, 3rem, 200px);
+    width: clamp(45px, 2.9rem, 200px);
+    height: clamp(45px, 2.9rem, 200px);
     color: var(--main-color);
-    font-size: clamp(20px, .8rem, 69px);
+    font-size: clamp(15px, .8rem, 69px);
 }
 .keypad > button:hover {
     cursor: pointer;
