@@ -8,9 +8,16 @@ An app for logging bowling games. Ideally, you would use this on a mobile device
 
 ### Change Log
 
-**V1.1**\
-_1/13/23_\
-Overall
+**V1.2**
+_1/25/23_
+
+- Removed server, API now goes through different repo.
+- slightly decreased button font size
+- current game saves on page reload
+
+- **V1.1**\
+  _1/13/23_\
+  Overall
 
 - Updated CSS, changed highlight color to blue
 - streamlined button style
@@ -30,7 +37,7 @@ Goals for next version:
 
 - [ ] refactor, create more subfolders
 - [ ] optimize code a bit, especially when making api calls and calculating scores
-- [ ] global toggle for scoreboards in Profile
+- [x] global toggle for scoreboards in Profile
 - [ ] add more statistics to Profile
 - [ ] add github link
 

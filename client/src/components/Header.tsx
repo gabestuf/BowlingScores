@@ -7,16 +7,16 @@ import { UserContext } from "../UserContext";
 interface Props {
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setAuthCookie: (name: string, value: any, options?: CookieSetOptions | undefined) => void;
+  removeAuthCookie: (name: string, options?: CookieSetOptions | undefined) => void;
 }
 
-const Header: FC<Props> = ({ isLoggedIn, setIsLoggedIn, setAuthCookie }) => {
+const Header: FC<Props> = ({ isLoggedIn, setIsLoggedIn, removeAuthCookie }) => {
   const username = useContext(UserContext);
   let location: string = useLocation().pathname;
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setAuthCookie("user", "");
+    removeAuthCookie("user");
   };
 
   return (

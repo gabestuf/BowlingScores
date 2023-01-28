@@ -8,7 +8,6 @@ import LoadingDisplay from "./components/LoadingDisplay";
 interface Props {
   setAuthCookie: (name: "user", value: any, options?: CookieSetOptions | undefined) => void;
   setUsername: React.Dispatch<React.SetStateAction<string | null>>;
-
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -43,7 +42,17 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
         setUsername(res.username);
         const uuid = crypto.randomUUID();
         setIsLoggedIn(true);
-        setAuthCookie("user", uuid, { maxAge: 3600 });
+        setAuthCookie(
+          "user",
+          {
+            name: res.username,
+            id: uuid,
+          },
+          { maxAge: 3600 } // in seconds
+        );
+
+        saveAuth(res.username, uuid);
+
         navigate("/");
       } else {
         return alert(res.message);
@@ -71,5 +80,22 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
     </div>
   );
 };
+
+async function saveAuth(username: string, id: string) {
+  const response = await fetch(URL + "Auth", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      id: id,
+    }),
+  });
+
+  const resJSON = await response.json();
+
+  console.log(resJSON);
+}
 
 export default LoginPage;
