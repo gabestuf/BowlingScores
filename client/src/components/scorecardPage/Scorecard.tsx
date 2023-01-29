@@ -1,6 +1,6 @@
 import { FC } from "react";
-import "./../css/scorecard.css";
-import Frame from "./Frame";
+import "./../../css/scorecard.css";
+import Frame from "../scorecard/Frame";
 
 interface Props {
   frameList: number[][];

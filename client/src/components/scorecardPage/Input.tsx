@@ -1,5 +1,5 @@
 import { FC } from "react";
-import "./../css/keypad.css";
+import "./../../css/keypad.css";
 
 interface Props {
   title: string;

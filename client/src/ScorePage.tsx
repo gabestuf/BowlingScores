@@ -1,8 +1,9 @@
 import { useState, FC, Fragment, useEffect } from "react";
-import ScorecardHandler from "./components/ScorecardHandler";
-import Input from "./components/Input";
-import ScorecardOptions from "./components/ScorecardOptions";
+import ScorecardHandler from "./components/scorecardPage/ScorecardHandler";
+import Input from "./components/scorecardPage/Input";
+import ScorecardOptions from "./components/scorecardPage/ScorecardOptions";
 import { CookieSetOptions } from "universal-cookie";
+import BowlingSession from "./components/scorecardPage/BowlingSession";
 
 interface Props {
   frameList: number[][];

@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ isLoggedIn, setIsLoggedIn, removeAuthCookie }) => {
-  const username = useContext(UserContext);
+  const userInfo = useContext(UserContext);
   let location: string = useLocation().pathname;
 
   const handleLogout = () => {
@@ -43,7 +43,7 @@ const Header: FC<Props> = ({ isLoggedIn, setIsLoggedIn, removeAuthCookie }) => {
         {isLoggedIn ? (
           <li>
             <NavLink className="link" to="/profile">
-              Welcome, {username || ""}
+              Welcome, {userInfo[0] || ""}
             </NavLink>
           </li>
         ) : (

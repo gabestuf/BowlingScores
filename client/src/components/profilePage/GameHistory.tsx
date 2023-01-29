@@ -1,22 +1,15 @@
 import { FC, useContext, useState } from "react";
-import { UserContext } from "../UserContext";
-import Scorecard from "./Scorecard";
-import URL from "./../URLS";
-import LoadingDisplay from "./LoadingDisplay";
+import { UserContext } from "../../UserContext";
+import Scorecard from "../scorecardPage/Scorecard";
+import URL from "../../URLS";
+import LoadingDisplay from "../LoadingDisplay";
 
 interface Props {
   gameData: {
     scorecard: number[][];
     frameScores: number[];
   }[];
-  setGameData: React.Dispatch<
-    React.SetStateAction<
-      {
-        scorecard: number[][];
-        frameScores: number[];
-      }[]
-    >
-  >;
+
   getMatches(): Promise<void>;
 }
 
@@ -42,8 +35,8 @@ const ShowScoreboardToggle: FC<Props2> = ({ game }) => {
   );
 };
 
-const GameHistory: FC<Props> = ({ gameData, setGameData, getMatches }) => {
-  const username = useContext(UserContext);
+const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
+  const userInfo = useContext(UserContext);
 
   async function handleDelete(index: number) {
     try {
@@ -53,7 +46,8 @@ const GameHistory: FC<Props> = ({ gameData, setGameData, getMatches }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: username,
+          username: userInfo[0],
+          token: userInfo[1],
           gameIndex: index,
         }),
       });

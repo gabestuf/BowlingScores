@@ -11,7 +11,7 @@ import "./css/App.css";
 import URL from "./URLS";
 
 function App() {
-  const [username, setUsername] = useState<string | null>(null); // TODO remember to change back to null after testing
+  const [username, setUsername] = useState<string>(""); // TODO remember to change back to null after testing
   const [authCookie, setAuthCookie, removeAuthCookie] = useCookies();
   const [currentGameCookie, setCurrentGameCookie, removeCurrentGameCookie] = useCookies();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // remember to change back to false after testing
@@ -57,7 +57,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={username}>
+      <UserContext.Provider value={[username, authCookie.user ? authCookie.user.id : ""]}>
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} removeAuthCookie={removeAuthCookie} />
         <Routes>
           <Route path="/" element={<ScorePage currentGameCookie={currentGameCookie} setCurrentGameCookie={setCurrentGameCookie} removeCurrentGameCookie={removeCurrentGameCookie} frameList={frameList} setFrameList={setFrameList} />} />

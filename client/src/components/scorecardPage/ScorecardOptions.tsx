@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
-import URL from "./../URLS";
-import { UserContext } from "../UserContext";
+import URL from "./../../URLS";
+import { UserContext } from "./../../UserContext";
 
 interface Props {
   frameList: number[][];
@@ -9,11 +9,11 @@ interface Props {
 }
 
 const ScorecardOptions: FC<Props> = ({ frameList, frameScores, resetGame }) => {
-  const username = useContext(UserContext);
+  const userInfo = useContext(UserContext);
 
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if (username === null) {
+    if (userInfo[0] === null) {
       return alert("Please sign in to save games :)");
     }
 
@@ -24,10 +24,11 @@ const ScorecardOptions: FC<Props> = ({ frameList, frameScores, resetGame }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: username,
+          username: userInfo[0],
           bowlingGame: {
             scorecard: frameList,
             frameScores: frameScores,
+            date: new Date(),
           },
         }),
       });

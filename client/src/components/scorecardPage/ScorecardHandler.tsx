@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import "./../css/scorecard.css";
+import "./../../css/scorecard.css";
 import CurrentGameStats from "./CurrentGameStats";
 import Scorecard from "./Scorecard";
 

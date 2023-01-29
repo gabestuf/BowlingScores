@@ -7,7 +7,7 @@ import LoadingDisplay from "./components/LoadingDisplay";
 
 interface Props {
   setAuthCookie: (name: "user", value: any, options?: CookieSetOptions | undefined) => void;
-  setUsername: React.Dispatch<React.SetStateAction<string | null>>;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

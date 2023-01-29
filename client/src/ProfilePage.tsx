@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import Profile from "./components/Profile";
+import Profile from "./components/profilePage/Profile";
 
 interface Props {
   isLoggedIn: boolean;

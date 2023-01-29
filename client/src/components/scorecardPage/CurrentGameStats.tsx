@@ -1,5 +1,5 @@
 import { FC } from "react";
-import "./../css/CurrentGameStats.css";
+import "./../../css/CurrentGameStats.css";
 
 interface Props {
   frameScores: number[];

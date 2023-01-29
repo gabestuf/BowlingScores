@@ -1,5 +1,5 @@
 import { FC } from "react";
-import "./../css/scorecard.css";
+import "./../../css/scorecard.css";
 interface Props {
   frame: Array<string>;
   num: number;
