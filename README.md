@@ -8,6 +8,17 @@ An app for logging bowling games. Ideally, you would use this on a mobile device
 
 ### Change Log
 
+**V1.3**\
+_1/28/23_\
+
+- [x] General stats on profile page
+- [ ] More stats per game
+- [ ] Stats per session
+- [ ] Page or function where you can compare current period to previous period, period set by date or num games.
+- [ ] Stats for current period and previous period
+- [ ] Session history, with game history inside
+- [ ] Sessions: you can now create a new session with a name and data. Each session has a list of games.
+
 **V1.2**
 _1/25/23_
 
@@ -35,7 +46,7 @@ _1/25/23_
 
 Goals for next version:
 
-- [ ] refactor, create more subfolders
+- [x] refactor, create more subfolders
 - [ ] optimize code a bit, especially when making api calls and calculating scores
 - [x] global toggle for scoreboards in Profile
 - [ ] add more statistics to Profile
