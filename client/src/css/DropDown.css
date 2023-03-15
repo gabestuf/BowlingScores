@@ -1,0 +1,14 @@
+#currentSession {
+    text-decoration: none;
+    border: none;
+    font-size: 1.5rem;
+    color:darkgreen;
+}
+
+.sessionOption>option {
+    font-size: 1.2;
+}
+.sessionOption:hover {
+    color: blue;
+    background-color: none;
+}

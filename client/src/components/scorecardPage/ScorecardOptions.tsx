@@ -6,9 +6,10 @@ interface Props {
   frameList: number[][];
   frameScores: number[];
   resetGame: () => void;
+  bowlingSession: string;
 }
 
-const ScorecardOptions: FC<Props> = ({ frameList, frameScores, resetGame }) => {
+const ScorecardOptions: FC<Props> = ({ frameList, frameScores, resetGame, bowlingSession }) => {
   const userInfo = useContext(UserContext);
 
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -29,6 +30,7 @@ const ScorecardOptions: FC<Props> = ({ frameList, frameScores, resetGame }) => {
             scorecard: frameList,
             frameScores: frameScores,
             date: new Date(),
+            session: bowlingSession,
           },
         }),
       });

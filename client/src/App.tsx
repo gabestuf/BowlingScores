@@ -4,7 +4,7 @@ import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
 import ProfilePage from "./ProfilePage";
 import Header from "./components/Header";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import useCookies from "react-cookie/cjs/useCookies";
 import { UserContext } from "./UserContext.js";
 import "./css/App.css";

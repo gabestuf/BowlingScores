@@ -94,8 +94,6 @@ async function saveAuth(username: string, id: string) {
   });
 
   const resJSON = await response.json();
-
-  console.log(resJSON);
 }
 
 export default LoginPage;

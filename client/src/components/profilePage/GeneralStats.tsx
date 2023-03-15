@@ -22,7 +22,7 @@ const GeneralStats: FC<Props> = ({ totalAvg, totalNumGames, totalFirstShotPinAvg
       <p>Average: {Number.isNaN(totalAvg) ? "-" : totalAvg}</p>
       <p>Average first shot score: {Number.isNaN(totalFirstShotPinAvg) ? "-" : totalFirstShotPinAvg}</p>
       <p>Average Strikes / game: {Number.isNaN(totalStrikesPerGameAvg) ? "-" : totalStrikesPerGameAvg}</p>
-      <p>Average Open frames / game: {Number.isNaN(totalOpenFrameCountAvg) ? "-" : totalOpenFrameCountAvg}</p>
+      {/* <p>Average Open frames / game: {Number.isNaN(totalOpenFrameCountAvg) ? "-" : totalOpenFrameCountAvg}</p> */}
     </div>
   );
 };

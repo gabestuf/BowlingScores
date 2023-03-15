@@ -4,6 +4,7 @@ import Input from "./components/scorecardPage/Input";
 import ScorecardOptions from "./components/scorecardPage/ScorecardOptions";
 import { CookieSetOptions } from "universal-cookie";
 import BowlingSession from "./components/scorecardPage/BowlingSession";
+import SessionHandler from "./components/scorecardPage/BowlingSessionHandler";
 
 interface Props {
   frameList: number[][];
@@ -19,6 +20,7 @@ const ScorePage: FC<Props> = ({ frameList, setFrameList, setCurrentGameCookie, c
   const [availableInputs, setAvailableInputs] = useState<Array<boolean>>([true, true, true, true, true, true, true, true, true, true, false, true, true]);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [frameScores, setFrameScores] = useState<Array<number>>([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]);
+  const [currentBowlingSession, setCurrentBowlingSession] = useState<string>("default");
 
   // On page load, set state if cookie exists
   useEffect(() => {
@@ -200,9 +202,10 @@ const ScorePage: FC<Props> = ({ frameList, setFrameList, setCurrentGameCookie, c
 
   return (
     <div className="App">
+      <SessionHandler setCurrentSession={setCurrentBowlingSession} currentSession={currentBowlingSession} />
       <ScorecardHandler showDetails={true} frameList={frameList} frameScores={frameScores} setFrameScores={setFrameScores} />
       <Input title="Input" addThrow={addThrow} removeThrow={removeThrow} availableInputs={availableInputs} />
-      {isGameOver ? <ScorecardOptions frameList={frameList} frameScores={frameScores} resetGame={resetGame} /> : null}
+      {isGameOver ? <ScorecardOptions frameList={frameList} frameScores={frameScores} resetGame={resetGame} bowlingSession={currentBowlingSession} /> : null}
     </div>
   );
 };
