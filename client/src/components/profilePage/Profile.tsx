@@ -5,6 +5,7 @@ import URL from "../../URLS";
 import LoadingDisplay from "../LoadingDisplay";
 import GameHistory from "./GameHistory";
 import GeneralStats from "./GeneralStats";
+import MatchFilterSelect from "./MatchFilterSelect";
 
 interface Props {}
 
@@ -28,7 +29,14 @@ interface GameStats {
 const Profile: FC<Props> = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showHistory, setShowHistory] = useState<boolean>(false);
-  const [gameData, setGameData] = useState<Array<{ scorecard: number[][]; frameScores: number[]; date: Date }>>([]);
+  const [gameData, setGameData] = useState<
+    Array<{
+      scorecard: number[][];
+      frameScores: number[];
+      date: Date;
+      session: string;
+    }>
+  >([]);
   const [gameStats, setGameStats] = useState<GameStats>({
     totalAvg: 0,
     currentPeriodAvg: 0,
@@ -45,6 +53,7 @@ const Profile: FC<Props> = () => {
     totalNumGames: 0,
     totalSpareConversionPercentage: 0,
   });
+  const [sessionList, setSessionList] = useState<string[]>([]);
 
   const userInfo = useContext(UserContext);
 
@@ -82,12 +91,15 @@ const Profile: FC<Props> = () => {
   }, [gameData]);
 
   const toggleShowHistory = () => {
-    return showHistory ? <GameHistory gameData={gameData} getMatches={getMatches} /> : null;
+    return showHistory ? (
+      <GameHistory gameData={gameData} getMatches={getMatches} />
+    ) : null;
   };
 
   // Get match info on page load
   useEffect(() => {
     getMatches();
+    getSessions();
   }, []);
 
   function calcData() {
@@ -133,16 +145,44 @@ const Profile: FC<Props> = () => {
     }
     // set avg
     stats.totalAvg = Math.round((stats.totalAvg / gameData.length) * 10) / 10;
-    stats.totalFirstShotPinAvg = Math.round((stats.totalFirstShotPinAvg / gameData.length) * 10) / 10;
-    stats.totalStrikesPerGameAvg = Math.round((stats.totalStrikesPerGameAvg / gameData.length) * 10) / 10;
-    stats.totalOpenFrameCountAvg = Math.round((stats.totalOpenFrameCountAvg / gameData.length) * 10) / 10;
+    stats.totalFirstShotPinAvg =
+      Math.round((stats.totalFirstShotPinAvg / gameData.length) * 10) / 10;
+    stats.totalStrikesPerGameAvg =
+      Math.round((stats.totalStrikesPerGameAvg / gameData.length) * 10) / 10;
+    stats.totalOpenFrameCountAvg =
+      Math.round((stats.totalOpenFrameCountAvg / gameData.length) * 10) / 10;
 
     return stats;
   }
 
+  const getSessions = async () => {
+    const res = await fetch(URL + "/user/getSessions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: userInfo[0],
+        token: userInfo[1],
+      }),
+    });
+
+    const resJSON = await res.json();
+    if (resJSON.status === "SUCCESS") {
+      setSessionList(JSON.parse(resJSON.sessionList));
+    }
+  };
+
   return (
     <div className="App profilePage">
-      <GeneralStats totalAvg={gameStats.totalAvg} totalNumGames={gameStats.totalNumGames} totalFirstShotPinAvg={gameStats.totalFirstShotPinAvg} totalStrikesPerGameAvg={gameStats.totalStrikesPerGameAvg} totalOpenFrameCountAvg={gameStats.totalOpenFrameCountAvg} />
+      <MatchFilterSelect filterOptions={sessionList} />
+      <GeneralStats
+        totalAvg={gameStats.totalAvg}
+        totalNumGames={gameStats.totalNumGames}
+        totalFirstShotPinAvg={gameStats.totalFirstShotPinAvg}
+        totalStrikesPerGameAvg={gameStats.totalStrikesPerGameAvg}
+        totalOpenFrameCountAvg={gameStats.totalOpenFrameCountAvg}
+      />
       <button
         className="btn"
         onClick={() => {

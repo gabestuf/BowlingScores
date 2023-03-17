@@ -3,11 +3,14 @@ import { UserContext } from "../../UserContext";
 import Scorecard from "../scorecardPage/Scorecard";
 import URL from "../../URLS";
 import LoadingDisplay from "../LoadingDisplay";
+import DateString from "./DateString";
 
 interface Props {
   gameData: {
     scorecard: number[][];
     frameScores: number[];
+    date: Date;
+    session: string;
   }[];
 
   getMatches(): Promise<void>;
@@ -22,7 +25,9 @@ const ShowScoreboardToggle: FC<Props2> = ({ game }) => {
 
   return (
     <>
-      {isToggled ? <Scorecard frameList={game.scorecard} frameScores={game.frameScores} /> : null}
+      {isToggled ? (
+        <Scorecard frameList={game.scorecard} frameScores={game.frameScores} />
+      ) : null}
       <button
         className="btn"
         onClick={() => {
@@ -90,27 +95,45 @@ const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
           </tr>
         </thead>
         <tbody>
-          {gameData.map((game: { scorecard: number[][]; frameScores: number[] }, i) => (
-            <tr key={i}>
-              <td style={{ fontWeight: "bold" }}>{gameData.length - i}</td>
-              <td>
-                <div style={{ display: "flex", gap: ".5rem", flexDirection: "column" }}>
-                  <ShowScoreboardToggle game={game} />
-                </div>
-              </td>
-              <td>{game.frameScores[game.frameScores.length - 1]}</td>
-              <td>
-                <button
-                  className="delete-btn"
-                  onClick={() => {
-                    handleDelete(gameData.length - i - 1);
-                  }}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
+          {gameData.map(
+            (
+              game: {
+                scorecard: number[][];
+                frameScores: number[];
+                date: Date;
+                session: string;
+              },
+              i
+            ) => (
+              <tr key={i}>
+                <td style={{ fontWeight: "bold" }}>
+                  <DateString date={game.date} />
+                </td>
+                <td>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: ".5rem",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <ShowScoreboardToggle game={game} />
+                  </div>
+                </td>
+                <td>{game.frameScores[game.frameScores.length - 1]}</td>
+                <td>
+                  <button
+                    className="delete-btn"
+                    onClick={() => {
+                      handleDelete(gameData.length - i - 1);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </>
