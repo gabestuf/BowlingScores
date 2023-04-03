@@ -25,6 +25,8 @@
     border-bottom: thin solid #6b6a6a;
 }
 
+
+
 .GameHistoryTable tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
@@ -37,7 +39,10 @@
     font-weight: bold;
     color: var(--main-color-light);
 }
-
+.GameHistoryTable tbody tr:hover {
+    cursor: pointer;
+    background-color: #dddddd;
+}
 .delete-btn {
     border: 2px solid black;
     border-radius: .5rem;

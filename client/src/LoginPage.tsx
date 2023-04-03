@@ -48,7 +48,7 @@ const LoginPage: FC<Props> = ({ setIsLoggedIn, setAuthCookie, setUsername }) => 
             name: res.username,
             id: uuid,
           },
-          { maxAge: 3600 } // in seconds
+          { maxAge: 3600, sameSite: true } // in seconds
         );
 
         saveAuth(res.username, uuid);

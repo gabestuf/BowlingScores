@@ -8,48 +8,18 @@ import SessionHandler from "./components/scorecardPage/BowlingSessionHandler";
 interface Props {
   frameList: number[][];
   setFrameList: React.Dispatch<React.SetStateAction<number[][]>>;
-  setCurrentGameCookie: (
-    name: string,
-    value: any,
-    options?: CookieSetOptions | undefined
-  ) => void;
+  setCurrentGameCookie: (name: string, value: any, options?: CookieSetOptions | undefined) => void;
   currentGameCookie: { [x: string]: any };
-  removeCurrentGameCookie: (
-    name: string,
-    options?: CookieSetOptions | undefined
-  ) => void;
+  removeCurrentGameCookie: (name: string, options?: CookieSetOptions | undefined) => void;
 }
 
-const ScorePage: FC<Props> = ({
-  frameList,
-  setFrameList,
-  setCurrentGameCookie,
-  currentGameCookie,
-  removeCurrentGameCookie,
-}) => {
+const ScorePage: FC<Props> = ({ frameList, setFrameList, setCurrentGameCookie, currentGameCookie, removeCurrentGameCookie }) => {
   const [currentFrame, setCurrentFrame] = useState<Array<number>>([]);
   const [isFirstShot, setIsFirstShot] = useState<boolean>(true);
-  const [availableInputs, setAvailableInputs] = useState<Array<boolean>>([
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    false,
-    true,
-    true,
-  ]);
+  const [availableInputs, setAvailableInputs] = useState<Array<boolean>>([true, true, true, true, true, true, true, true, true, true, false, true, true]);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
-  const [frameScores, setFrameScores] = useState<Array<number>>([
-    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-  ]);
-  const [currentBowlingSession, setCurrentBowlingSession] =
-    useState<string>("default");
+  const [frameScores, setFrameScores] = useState<Array<number>>([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]);
+  const [currentBowlingSession, setCurrentBowlingSession] = useState<string>("default");
 
   // On page load, set state if cookie exists
   useEffect(() => {
@@ -62,48 +32,31 @@ const ScorePage: FC<Props> = ({
       setFrameList(currentGameCookie.currentGame.frameList);
       setIsGameOver(isGameOver);
 
-      if (
-        currentGameCookie.currentGame.frameList.length === 10 &&
-        (currentGameCookie.currentGame.frameList[9].length === 3 ||
-          (currentGameCookie.currentGame.frameList[9].length === 2 &&
-            currentGameCookie.currentGame.frameList[9][0] +
-              currentGameCookie.currentGame.frameList[9][1] <
-              10))
-      ) {
+      if (currentGameCookie.currentGame.frameList.length === 10 && (currentGameCookie.currentGame.frameList[9].length === 3 || (currentGameCookie.currentGame.frameList[9].length === 2 && currentGameCookie.currentGame.frameList[9][0] + currentGameCookie.currentGame.frameList[9][1] < 10))) {
         setIsGameOver(true);
       }
     }
   }, []);
 
   useEffect(() => {
-    setCurrentGameCookie("currentGame", {
-      currentFrame: currentFrame,
-      isFirstShot: isFirstShot,
-      availableInputs: availableInputs,
-      frameScores: frameScores,
-      isGameOver: isGameOver,
-      frameList: frameList,
-    });
+    setCurrentGameCookie(
+      "currentGame",
+      {
+        currentFrame: currentFrame,
+        isFirstShot: isFirstShot,
+        availableInputs: availableInputs,
+        frameScores: frameScores,
+        isGameOver: isGameOver,
+        frameList: frameList,
+      },
+      { sameSite: true }
+    );
   }, [currentFrame, isFirstShot, availableInputs, frameScores, frameList]);
 
   const resetGame = () => {
     setCurrentFrame([]);
     setIsFirstShot(true);
-    setAvailableInputs([
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      false,
-      true,
-      true,
-    ]);
+    setAvailableInputs([true, true, true, true, true, true, true, true, true, true, false, true, true]);
     setIsGameOver(false);
     setFrameScores([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]);
     setFrameList([]);
@@ -112,11 +65,7 @@ const ScorePage: FC<Props> = ({
 
   const addThrow = (val: number): void => {
     // 10th frame logic
-    if (
-      (frameList.length === 9 &&
-        (frameList[8].length === 2 || frameList[8][0] === 10)) ||
-      frameList.length === 10
-    ) {
+    if ((frameList.length === 9 && (frameList[8].length === 2 || frameList[8][0] === 10)) || frameList.length === 10) {
       switch (currentFrame.length) {
         case 0:
           if (val <= 9) {
@@ -225,40 +174,12 @@ const ScorePage: FC<Props> = ({
   };
 
   const resetAvail = () => {
-    const x = [
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      false,
-      true,
-      true,
-    ];
+    const x = [true, true, true, true, true, true, true, true, true, true, false, true, true];
     setAvailableInputs(x);
   };
 
   const noAvail = () => {
-    const x = [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      true,
-    ];
+    const x = [false, false, false, false, false, false, false, false, false, false, false, false, true];
     setAvailableInputs(x);
   };
 
@@ -284,30 +205,10 @@ const ScorePage: FC<Props> = ({
 
   return (
     <div className="App">
-      <SessionHandler
-        setCurrentSession={setCurrentBowlingSession}
-        currentSession={currentBowlingSession}
-      />
-      <ScorecardHandler
-        showDetails={true}
-        frameList={frameList}
-        frameScores={frameScores}
-        setFrameScores={setFrameScores}
-      />
-      <Input
-        title="Input"
-        addThrow={addThrow}
-        removeThrow={removeThrow}
-        availableInputs={availableInputs}
-      />
-      {isGameOver ? (
-        <ScorecardOptions
-          frameList={frameList}
-          frameScores={frameScores}
-          resetGame={resetGame}
-          bowlingSession={currentBowlingSession}
-        />
-      ) : null}
+      <SessionHandler setCurrentSession={setCurrentBowlingSession} currentSession={currentBowlingSession} />
+      <ScorecardHandler showDetails={true} frameList={frameList} frameScores={frameScores} setFrameScores={setFrameScores} />
+      <Input title="Input" addThrow={addThrow} removeThrow={removeThrow} availableInputs={availableInputs} />
+      {isGameOver ? <ScorecardOptions frameList={frameList} frameScores={frameScores} resetGame={resetGame} bowlingSession={currentBowlingSession} /> : null}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import DateString from "./DateString";
 
 interface Props {
   gameData: {
+    _id: String;
     scorecard: number[][];
     frameScores: number[];
     date: Date;
@@ -16,34 +17,10 @@ interface Props {
   getMatches(): Promise<void>;
 }
 
-interface Props2 {
-  game: { scorecard: number[][]; frameScores: number[] };
-}
-
-const ShowScoreboardToggle: FC<Props2> = ({ game }) => {
-  const [isToggled, setIsToggled] = useState<boolean>(false);
-
-  return (
-    <>
-      {isToggled ? (
-        <Scorecard frameList={game.scorecard} frameScores={game.frameScores} />
-      ) : null}
-      <button
-        className="btn"
-        onClick={() => {
-          setIsToggled(!isToggled);
-        }}
-      >
-        {isToggled ? "Hide" : "Show Scoreboard"}
-      </button>
-    </>
-  );
-};
-
 const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
   const userInfo = useContext(UserContext);
 
-  async function handleDelete(index: number) {
+  async function handleDelete(gameID: String) {
     try {
       const response = await fetch(URL + "/user/deleteMatch", {
         method: "POST",
@@ -53,7 +30,7 @@ const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
         body: JSON.stringify({
           username: userInfo[0],
           token: userInfo[1],
-          gameIndex: index,
+          gameID: gameID,
         }),
       });
 
@@ -88,9 +65,9 @@ const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
       <table className="GameHistoryTable">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Scorecard</th>
+            <th>Date</th>
             <th>Total</th>
+            <th>Session</th>
             <th>Options</th>
           </tr>
         </thead>
@@ -102,30 +79,23 @@ const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
                 frameScores: number[];
                 date: Date;
                 session: string;
+                _id: String;
               },
               i
             ) => (
               <tr key={i}>
-                <td style={{ fontWeight: "bold" }}>
+                <td>
                   <DateString date={game.date} />
                 </td>
                 <td>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: ".5rem",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <ShowScoreboardToggle game={game} />
-                  </div>
+                  <h4>{game.frameScores[game.frameScores.length - 1]}</h4>
                 </td>
-                <td>{game.frameScores[game.frameScores.length - 1]}</td>
+                <td>{game.session}</td>
                 <td>
                   <button
                     className="delete-btn"
                     onClick={() => {
-                      handleDelete(gameData.length - i - 1);
+                      handleDelete(game._id);
                     }}
                   >
                     Delete
