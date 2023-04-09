@@ -10,7 +10,6 @@ interface Props {
 
 const MatchFilterSelect: FC<Props> = ({ filterOptions, sessionList, setFilterOptions, resetFilters }) => {
   const handleSessionFilterChange = (str: string) => {
-    console.log(str);
     if (str !== filterOptions.session) {
       setFilterOptions({ ...filterOptions, session: str });
     }
