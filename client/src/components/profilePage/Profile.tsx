@@ -86,6 +86,7 @@ const Profile: FC<Props> = () => {
 
   // handle filtering
   useEffect(() => {
+    console.log("Here");
     getMatches();
   }, [filterOptions.session]);
 

@@ -10,6 +10,7 @@ interface Props {
 
 const MatchFilterSelect: FC<Props> = ({ filterOptions, sessionList, setFilterOptions, resetFilters }) => {
   const handleSessionFilterChange = (str: string) => {
+    console.log(str);
     if (str !== filterOptions.session) {
       setFilterOptions({ ...filterOptions, session: str });
     }
@@ -17,9 +18,9 @@ const MatchFilterSelect: FC<Props> = ({ filterOptions, sessionList, setFilterOpt
 
   return (
     <div className="filterContainer">
-      <select name="matchFilter" id="matchFilter" className="matchFilter">
+      <select name="matchFilter" id="matchFilter" className="matchFilter" onChange={(e) => handleSessionFilterChange(e.target.value)}>
         {sessionList.map((element, i) => (
-          <option value={element} key={i} className="filterOption" onClick={() => handleSessionFilterChange(element)}>
+          <option id="matchFilter" value={element} key={i} className="filterOption">
             {element}
           </option>
         ))}
