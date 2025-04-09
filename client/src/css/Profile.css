@@ -55,3 +55,16 @@
     cursor: pointer;
     background-color: red;
 }
+
+.green-btn {
+    border: 2px solid black;
+    border-radius: .5rem;
+    background-color: rgb(38, 162, 53);
+    color: white;
+    padding: .4rem 1rem;
+}
+
+.green-btn:hover {
+    cursor: pointer;
+    background-color: rgb(40, 215, 61);
+}

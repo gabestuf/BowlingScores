@@ -1,5 +1,10 @@
 # Bowling Score Tracker
 
+## To Run
+
+cd into client folder
+run `npm start`
+
 ## Description
 
 An app for logging bowling games. Ideally, you would use this on a mobile device when on the lanes to record your scores. The goal is to be able to show you your past games, sessions, avgs, handicaps, and other statistics. It was built with React frontend and with an express backend.
@@ -7,6 +12,12 @@ An app for logging bowling games. Ideally, you would use this on a mobile device
 ---
 
 ### Change Log
+
+**V1.4**\
+_3/8/25_\
+
+- Added new page to view individual scorecards of past games by going to your profile > match history > clicking view
+- These links are sendable to other people.
 
 **V1.3**\
 _1/28/23_\

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import ScorePage from "./ScorePage";
 import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
@@ -9,6 +9,9 @@ import useCookies from "react-cookie/cjs/useCookies";
 import { UserContext } from "./UserContext.js";
 import "./css/App.css";
 import URL from "./URLS";
+import GameReviewPage from "./gameReviewPage";
+import { CookieSetOptions } from "universal-cookie";
+import PageNotFound from "./PageNotFound";
 
 function App() {
   const [username, setUsername] = useState<string>(""); // TODO remember to change back to null after testing
@@ -64,6 +67,8 @@ function App() {
           <Route path="/signin" element={<LoginPage setAuthCookie={setAuthCookie} setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/profile" element={<ProfilePage isLoggedIn={isLoggedIn} />} />
+          <Route path="/game/:id" element={<GameReviewPage isLoggedIn={isLoggedIn} />} />
+          <Route path="/404" element={<PageNotFound />} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

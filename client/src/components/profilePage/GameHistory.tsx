@@ -4,6 +4,7 @@ import Scorecard from "../scorecardPage/Scorecard";
 import URL from "../../URLS";
 import LoadingDisplay from "../LoadingDisplay";
 import DateString from "./DateString";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   gameData: {
@@ -19,7 +20,7 @@ interface Props {
 
 const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
   const userInfo = useContext(UserContext);
-
+  const navigate = useNavigate();
   async function handleDelete(gameID: String) {
     try {
       const response = await fetch(URL + "/user/deleteMatch", {
@@ -47,6 +48,10 @@ const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
     }
   }
 
+  function handleGameSelect(_gameId: String) {
+    navigate(`/game/${_gameId}`);
+  }
+
   // Return this code if there are no games played
   if (gameData.length === 0) {
     return (
@@ -69,6 +74,7 @@ const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
             <th>Total</th>
             <th>Session</th>
             <th>Options</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -91,6 +97,16 @@ const GameHistory: FC<Props> = ({ gameData, getMatches }) => {
                   <h4>{game.frameScores[game.frameScores.length - 1]}</h4>
                 </td>
                 <td>{game.session}</td>
+                <td>
+                  <button
+                    className="green-btn"
+                    onClick={() => {
+                      handleGameSelect(game._id);
+                    }}
+                  >
+                    View
+                  </button>
+                </td>
                 <td>
                   <button
                     className="delete-btn"
